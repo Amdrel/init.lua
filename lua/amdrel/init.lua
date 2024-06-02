@@ -4,9 +4,9 @@ require("amdrel.lazy_init")
 
 local augroup = vim.api.nvim_create_augroup
 local AmdrelGroup = augroup('Amdrel', {})
+local YankGroup = augroup('HighlightYank', {})
 
 local autocmd = vim.api.nvim_create_autocmd
-local yank_group = augroup('HighlightYank', {})
 
 function R(name)
     require("plenary.reload").reload_module(name)
@@ -19,7 +19,7 @@ vim.filetype.add({
 })
 
 autocmd('TextYankPost', {
-    group = yank_group,
+    group = YankGroup,
     pattern = '*',
     callback = function()
         vim.highlight.on_yank({
@@ -35,6 +35,14 @@ autocmd({"BufWritePre"}, {
     command = [[%s/\s\+$//e]],
 })
 
+autocmd({"VimLeave"}, {
+    group = AmdrelGroup,
+    pattern = "*",
+    callback = function()
+        vim.opt.guicursor = "a:hor20"
+    end
+})
+
 autocmd('LspAttach', {
     group = AmdrelGroup,
     callback = function(e)
@@ -46,7 +54,6 @@ autocmd('LspAttach', {
         vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
         vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
         vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-        vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
         vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
         vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
     end
