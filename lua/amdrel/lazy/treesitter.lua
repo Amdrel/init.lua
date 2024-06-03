@@ -7,7 +7,7 @@ return {
             -- A list of parser names, or "all"
             ensure_installed = {
                 "vimdoc", "javascript", "typescript", "c", "lua", "rust",
-                "jsdoc", "bash",
+                "jsdoc", "bash"
             },
 
             -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -24,6 +24,9 @@ return {
             highlight = {
                 -- `false` will disable the whole extension
                 enable = true,
+
+                -- Anything I list here is broken with treesitter unfortunately
+                disable = { "vue" },
 
                 -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
                 -- Set this to `true` if you depend on "syntax" being enabled (like for indentation).

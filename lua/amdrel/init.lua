@@ -35,6 +35,14 @@ autocmd({"BufWritePre"}, {
     command = [[%s/\s\+$//e]],
 })
 
+autocmd({"BufNewFile","BufRead"}, {
+    group = AmdrelGroup,
+    pattern = "*.vue",
+    callback = function ()
+        vim.opt.filetype = "html"
+    end
+})
+
 autocmd({"VimLeave"}, {
     group = AmdrelGroup,
     pattern = "*",
@@ -60,5 +68,3 @@ autocmd('LspAttach', {
 })
 
 vim.g.netrw_browse_split = 0
---vim.g.netrw_banner = 0
---vim.g.netrw_winsize = 25

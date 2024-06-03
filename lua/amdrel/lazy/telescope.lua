@@ -8,11 +8,20 @@ return {
     },
 
     config = function()
-        require('telescope').setup({})
+        require('telescope').setup({
+            defaults = {
+                file_ignore_patterns = {
+                    "./node_modules/*",
+                    "node_modules",
+                    "./vendor/*",
+                    "vendor",
+                },
+            }
+        })
 
         local builtin = require('telescope.builtin')
         vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
-        vim.keymap.set('n', '<C-p>', builtin.find_files, {})
+        vim.keymap.set('n', '<C-p>', function() builtin.find_files({no_ignore = true}) end, {})
         vim.keymap.set('n', '<C-S-p>', builtin.git_files, {})
         vim.keymap.set('n', '<leader>pws', function()
             local word = vim.fn.expand("<cword>")
@@ -28,4 +37,3 @@ return {
         vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
     end
 }
-

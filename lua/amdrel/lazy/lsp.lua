@@ -31,6 +31,7 @@ return {
                 "gopls",
                 "phpactor",
                 "tsserver",
+                "vuels",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -68,7 +69,7 @@ return {
                 ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
                 ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
                 ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-                ['<CR>'] = cmp.mapping.confirm({ select = true }),
+                ['<CR>'] = cmp.mapping.confirm({ select = false }),
                 ["<C-Space>"] = cmp.mapping.complete(),
             }),
             sources = cmp.config.sources({
