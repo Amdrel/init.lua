@@ -45,4 +45,5 @@ vim.keymap.set("n", "<C-l>", "<cmd>wincmd l<CR>")
 
 vim.keymap.set("t", "<C-X>", "<C-\\><C-n>")
 vim.keymap.set("i", "<C-H>", "<C-W>")
---vim.api.nvim_set_keymap('i', '<C-H>', '<C-W>', {noremap = true})
+vim.keymap.set("n", "<C-S-H>", "<cmd>tabm -1<CR>")
+vim.keymap.set("n", "<C-S-L>", "<cmd>tabm +1<CR>")
