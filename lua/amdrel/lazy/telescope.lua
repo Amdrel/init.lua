@@ -15,6 +15,8 @@ return {
                     "node_modules",
                     "./vendor/*",
                     "vendor",
+                    "./cache/*",
+                    "cache",
                 },
             }
         })
