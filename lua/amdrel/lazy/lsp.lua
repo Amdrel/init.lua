@@ -32,6 +32,7 @@ return {
                 "phpactor",
                 "tsserver",
                 "vuels",
+                "eslint",
             },
             handlers = {
                 function(server_name) -- default handler (optional)

@@ -18,16 +18,27 @@ return {
                     "./cache/*",
                     "cache",
                 },
-            }
+                vimgrep_arguments = {
+                    'rg',
+                    '--color=never',
+                    '--no-heading',
+                    '--with-filename',
+                    '--line-number',
+                    '--column',
+                    '--smart-case',
+                    '--hidden',
+                    '--no-ignore-vcs',
+                },
+            },
         })
 
         local builtin = require('telescope.builtin')
         vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
         vim.keymap.set('n', '<C-p>', function()
-            builtin.find_files({no_ignore = true})
+            builtin.find_files({ no_ignore = true, hidden = true })
         end, {})
         vim.keymap.set('n', '<C-S-p>', function()
-            builtin.git_files({recurse_submodules = true})
+            builtin.git_files({ recurse_submodules = true })
         end, {})
         vim.keymap.set('n', '<leader>pws', function()
             local word = vim.fn.expand("<cword>")
@@ -38,7 +49,10 @@ return {
             builtin.grep_string({ search = word })
         end)
         vim.keymap.set('n', '<leader>ps', function()
-            builtin.grep_string({ search = vim.fn.input("Grep > ") })
+            builtin.grep_string({
+                search = vim.fn.input("Grep > "),
+                use_regex = true,
+            })
         end)
         vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
     end
