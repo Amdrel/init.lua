@@ -45,8 +45,8 @@ vim.keymap.set("n", "<C-l>", "<cmd>wincmd l<CR>")
 
 vim.keymap.set("t", "<C-X>", "<C-\\><C-n>")
 vim.keymap.set("i", "<C-H>", "<C-W>")
-vim.keymap.set("n", "<C-S-H>", "<cmd>tabm -1<CR>")
-vim.keymap.set("n", "<C-S-L>", "<cmd>tabm +1<CR>")
+vim.keymap.set("n", "<M-h>", "<cmd>tabm -1<CR>")
+vim.keymap.set("n", "<M-l>", "<cmd>tabm +1<CR>")
 
 -- I never use these for their intended purposes so I'm going to make them useful for me
 vim.keymap.set("n", "H", "<cmd>BufSurfBack<CR>")

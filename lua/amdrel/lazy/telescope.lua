@@ -37,7 +37,7 @@ return {
         vim.keymap.set('n', '<C-p>', function()
             builtin.find_files({ no_ignore = true, hidden = true })
         end, {})
-        vim.keymap.set('n', '<C-S-p>', function()
+        vim.keymap.set('n', '<M-p>', function()
             builtin.git_files({ recurse_submodules = true })
         end, {})
         vim.keymap.set('n', '<leader>pws', function()
@@ -51,6 +51,12 @@ return {
         vim.keymap.set('n', '<leader>ps', function()
             builtin.grep_string({
                 search = vim.fn.input("Grep > "),
+                use_regex = false,
+            })
+        end)
+        vim.keymap.set('n', '<leader>pS', function()
+            builtin.grep_string({
+                search = vim.fn.input("Regex Grep > "),
                 use_regex = true,
             })
         end)
