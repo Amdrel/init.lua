@@ -30,9 +30,10 @@ return {
                 "rust_analyzer",
                 "gopls",
                 "phpactor",
-                "tsserver",
+                "ts_ls",
                 "vuels",
                 "eslint",
+                "html",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
