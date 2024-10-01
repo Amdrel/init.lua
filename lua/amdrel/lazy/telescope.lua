@@ -35,7 +35,11 @@ return {
         local builtin = require('telescope.builtin')
         vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
         vim.keymap.set('n', '<C-p>', function()
-            builtin.git_files({ recurse_submodules = true })
+            builtin.git_files({
+                recurse_submodules = false,
+                show_untracked = true,
+                use_git_root = false,
+            })
         end, {})
         vim.keymap.set('n', '<M-p>', function()
             builtin.find_files({ no_ignore = true, hidden = true })

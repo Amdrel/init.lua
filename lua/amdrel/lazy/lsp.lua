@@ -26,14 +26,14 @@ return {
         require("mason").setup()
         require("mason-lspconfig").setup({
             ensure_installed = {
-                "lua_ls",
-                "rust_analyzer",
+                "eslint",
                 "gopls",
+                "html",
+                "lua_ls",
                 "phpactor",
+                "rust_analyzer",
                 "ts_ls",
                 "vuels",
-                "eslint",
-                "html",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -44,6 +44,7 @@ return {
 
                 ["lua_ls"] = function()
                     local lspconfig = require("lspconfig")
+
                     lspconfig.lua_ls.setup {
                         capabilities = capabilities,
                         settings = {

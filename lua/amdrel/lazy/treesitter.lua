@@ -7,7 +7,7 @@ return {
             -- A list of parser names, or "all"
             ensure_installed = {
                 "vimdoc", "javascript", "typescript", "c", "lua", "rust",
-                "jsdoc", "bash"
+                "jsdoc", "bash", "php", "html", "blade"
             },
 
             -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -36,13 +36,23 @@ return {
             },
         })
 
-        local treesitter_parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-        treesitter_parser_config.templ = {
+        local parsers = require("nvim-treesitter.parsers").get_parser_configs()
+
+        parsers.templ = {
             install_info = {
                 url = "https://github.com/vrischmann/tree-sitter-templ.git",
                 files = {"src/parser.c", "src/scanner.c"},
                 branch = "master",
             },
+        }
+
+        parsers.blade = {
+            install_info = {
+                url = "https://github.com/EmranMR/tree-sitter-blade",
+                files = { "src/parser.c" },
+                branch = "main",
+            },
+            filetype = "blade",
         }
 
         vim.treesitter.language.register("templ", "templ")

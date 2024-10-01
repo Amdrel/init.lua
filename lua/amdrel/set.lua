@@ -25,6 +25,8 @@ vim.opt.isfname:append("@-@")
 vim.opt.termguicolors = true
 vim.opt.updatetime = 50
 
+vim.opt.exrc = true
+
 -- System clipboard integration
 if vim.fn.has("unix") == 1 then
     local os = vim.fn.system("uname"):gsub("\n", "")

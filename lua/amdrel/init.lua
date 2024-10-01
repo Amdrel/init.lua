@@ -3,8 +3,8 @@ require("amdrel.remap")
 require("amdrel.lazy_init")
 
 local augroup = vim.api.nvim_create_augroup
-local AmdrelGroup = augroup('Amdrel', {})
-local YankGroup = augroup('HighlightYank', {})
+local AmdrelGroup = augroup("Amdrel", {})
+local YankGroup = augroup("HighlightYank", {})
 
 local autocmd = vim.api.nvim_create_autocmd
 
@@ -14,8 +14,14 @@ end
 
 vim.filetype.add({
     extension = {
-        templ = 'templ',
+        templ = "templ",
     }
+})
+
+vim.filetype.add({
+    pattern = {
+        [".*%.blade%.php"] = "blade",
+    },
 })
 
 autocmd('TextYankPost', {
@@ -51,7 +57,7 @@ autocmd({"VimLeave"}, {
     end
 })
 
-autocmd('LspAttach', {
+autocmd("LspAttach", {
     group = AmdrelGroup,
     callback = function(e)
         local opts = { buffer = e.buf }
