@@ -1,5 +1,5 @@
 return {
-    {
-        "ton/vim-bufsurf",
-    }
+	{
+		"ton/vim-bufsurf",
+	},
 }

@@ -1,7 +1,7 @@
 return {
-    'rmagatti/auto-session',
-    lazy = false,
-    opts = {
-        suppressed_dirs = {},
-    }
+	"rmagatti/auto-session",
+	lazy = false,
+	opts = {
+		suppressed_dirs = {},
+	},
 }
