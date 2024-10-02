@@ -91,4 +91,10 @@ autocmd("LspAttach", {
 	end,
 })
 
+-- Reload unchanged files on focus gain whenever they change in the filesystem.
+autocmd({ "CursorHold", "CursorHoldI", "FocusGained" }, {
+	command = "if mode() != 'c' | checktime | endif",
+	pattern = { "*" },
+})
+
 vim.g.netrw_browse_split = 0
