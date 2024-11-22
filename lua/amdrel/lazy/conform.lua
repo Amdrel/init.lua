@@ -11,6 +11,8 @@ return {
 			vue = { "prettier" },
 			jsx = { "prettier" },
 			tsx = { "prettier" },
+			javascriptreact = { "prettier" },
+			typescriptreact = { "prettier" },
 			lua = { "stylua" },
 			python = { "isort", "black" },
 			rust = { "rustfmt", lsp_format = "fallback" },

@@ -26,8 +26,8 @@ return {
 					"--line-number",
 					"--column",
 					"--smart-case",
-					"--hidden",
-					"--no-ignore-vcs",
+					-- "--hidden",
+					-- "--no-ignore-vcs",
 				},
 			},
 		})
