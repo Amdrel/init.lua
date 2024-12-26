@@ -24,6 +24,12 @@ vim.filetype.add({
 	},
 })
 
+vim.filetype.add({
+	extension = {
+		mdx = "markdown",
+	},
+})
+
 autocmd("TextYankPost", {
 	group = YankGroup,
 	pattern = "*",
