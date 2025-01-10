@@ -28,21 +28,22 @@ return {
 		"cpea2506/one_monokai.nvim",
 		config = function()
 			require("one_monokai").setup({
-				transparent = true, -- enable transparent window
+				transparent = true,
 				colors = {
 					green = "#d0d0d0",
+					pink = "#e8556b",
 				},
 				themes = function(colors)
-					-- change highlight of some groups,
-					-- the key and value will be passed respectively to "nvim_set_hl"
+					-- Change highlight of some groups, The key and value will
+					-- be passed respectively to "nvim_set_hl".
 					return {
 						Normal = { bg = colors.lmao },
 						DiffChange = { fg = colors.white:darken(0.3) },
-						ErrorMsg = { fg = colors.pink, standout = true },
+						ErrorMsg = { fg = colors.red, standout = true },
 						["@lsp.type.keyword"] = { link = "@keyword" },
 					}
 				end,
-				italics = false, -- disable italics
+				italics = false,
 			})
 			ColorMyPencils()
 		end,
