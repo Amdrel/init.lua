@@ -39,13 +39,16 @@ return {
 				"ts_ls",
 				"vuels",
 			},
+
 			handlers = {
-				function(server_name) -- default handler (optional)
+				-- Default handler (optional)
+				function(server_name)
 					require("lspconfig")[server_name].setup({
 						capabilities = capabilities,
 					})
 				end,
 
+				-- Make the Lua LSP work with tests.
 				["lua_ls"] = function()
 					local lspconfig = require("lspconfig")
 
@@ -62,6 +65,8 @@ return {
 					})
 				end,
 
+				-- The TypeScript LSP isn't loading unless I add the
+				-- 'on_attach' for some reason.
 				["ts_ls"] = function()
 					local lspconfig = require("lspconfig")
 
@@ -74,11 +79,41 @@ return {
 					})
 				end,
 
+				-- Workaround Tailwind rules not being found.
 				["cssls"] = function()
 					local lspconfig = require("lspconfig")
 
 					lspconfig.cssls.setup({
 						settings = { css = { lint = { unknownAtRules = "ignore" } } },
+					})
+				end,
+
+				-- When working on Mediawiki I like having my cwd match the
+				-- extension that I'm working on, but I still want the LSP to
+				-- be useful. This is so that telescope works correctly mainly
+				-- as the submodules are ignored.
+				--
+				-- This override checks if I'm in Mediawiki, and if so, sets
+				-- the LSP cwd to the core repository.
+				["phpactor"] = function()
+					local lspconfig = require("lspconfig")
+
+					lspconfig.phpactor.setup({
+						capabilities = capabilities,
+
+						root_dir = function(fname)
+							local cwd = vim.fn.getcwd()
+							local home_path = vim.fn.expand("~")
+							local mediawiki_path = vim.fs.joinpath(home_path, "src/wikimedia/mediawiki")
+
+							if string.sub(cwd, 1, #mediawiki_path) == mediawiki_path then
+								return mediawiki_path
+							end
+
+							-- Fallback to standard behavior for other PHP apps.
+							return lspconfig.util.root_pattern(".git", "composer.json")(fname)
+								or lspconfig.util.path.dirname(fname)
+						end,
 					})
 				end,
 			},
