@@ -26,7 +26,7 @@ return {
 
 			return {
 				-- These options will be passed to conform.format()
-				timeout_ms = 2000,
+				timeout_ms = 20000,
 				lsp_format = "fallback",
 			}
 		end,

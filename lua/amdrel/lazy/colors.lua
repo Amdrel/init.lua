@@ -41,6 +41,13 @@ return {
 						DiffChange = { fg = colors.white:darken(0.3) },
 						ErrorMsg = { fg = colors.red, standout = true },
 						["@lsp.type.keyword"] = { link = "@keyword" },
+
+						-- Adjust some Python color choices I find to be a bit
+						-- difficult to read with the default choices.
+						["@module.python"] = { fg = colors.lmao },
+						["@type.builtin.python"] = { fg = colors.blue },
+						["@keyword.type.python"] = { fg = colors.cyan },
+						["@string.documentation.python"] = { fg = "#5cb76e" },
 					}
 				end,
 				italics = false,
