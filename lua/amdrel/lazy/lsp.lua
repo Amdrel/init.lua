@@ -27,15 +27,16 @@ return {
 		require("mason").setup()
 		require("mason-lspconfig").setup({
 			ensure_installed = {
-				"cssls",
 				"css_variables",
-				"tailwindcss",
+				"cssls",
 				"eslint",
 				"gopls",
 				"html",
 				"lua_ls",
 				"phpactor",
+				"pyright",
 				"rust_analyzer",
+				"tailwindcss",
 				"ts_ls",
 				"vuels",
 			},
