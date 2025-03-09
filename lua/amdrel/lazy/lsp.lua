@@ -26,20 +26,26 @@ return {
 		require("fidget").setup({})
 		require("mason").setup()
 		require("mason-lspconfig").setup({
-			ensure_installed = {
-				"css_variables",
-				"cssls",
-				"eslint",
-				"gopls",
-				"html",
-				"lua_ls",
-				"phpactor",
-				"pyright",
-				"rust_analyzer",
-				"tailwindcss",
-				"ts_ls",
-				"vuels",
-			},
+			-- Recommended LSPs for primary dev systems.
+			--
+			-- I've got these disabled since I've started installing Neovim on
+			-- servers and I don't want to install a bunch of 3rd party
+			-- dependencies that I will never use.
+			--
+			-- ensure_installed = {
+			-- 	"css_variables",
+			-- 	"cssls",
+			-- 	"eslint",
+			-- 	"gopls",
+			-- 	"html",
+			-- 	"lua_ls",
+			-- 	"phpactor",
+			-- 	"pyright",
+			-- 	"rust_analyzer",
+			-- 	"tailwindcss",
+			-- 	"ts_ls",
+			-- 	"vuels",
+			-- },
 
 			handlers = {
 				-- Default handler (optional)
