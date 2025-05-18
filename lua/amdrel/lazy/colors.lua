@@ -6,24 +6,12 @@ function ColorMyPencils(color)
 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 	vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#222222" })
 	vim.api.nvim_set_hl(0, "CursorLine", { bg = "#212121" })
-	vim.api.nvim_set_hl(0, "TabLineFill", { bg = "none" })
+	vim.api.nvim_set_hl(0, "TabLineFill", { bg = "#1e2024" })
+	vim.api.nvim_set_hl(0, "TabLineSel", { fg = "#000000", bg = "#ffffff" })
+	vim.api.nvim_set_hl(0, "TabLine", { fg = "#9ca3b2", bg = "#1e2024" })
 end
 
 return {
-	{
-		"rose-pine/neovim",
-		name = "rose-pine",
-		config = function()
-			require("rose-pine").setup({
-				disable_background = true,
-				styles = {
-					italic = false,
-					transparency = true,
-				},
-			})
-			ColorMyPencils()
-		end,
-	},
 	{
 		"cpea2506/one_monokai.nvim",
 		config = function()
@@ -33,7 +21,7 @@ return {
 					green = "#d0d0d0",
 					pink = "#e8556b",
 				},
-				themes = function(colors)
+				highlights = function(colors)
 					-- Change highlight of some groups, The key and value will
 					-- be passed respectively to "nvim_set_hl".
 					return {
