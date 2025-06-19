@@ -1,5 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
+
 	dependencies = {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
@@ -15,116 +16,63 @@ return {
 
 	config = function()
 		local cmp = require("cmp")
-		local cmp_lsp = require("cmp_nvim_lsp")
-		local capabilities = vim.tbl_deep_extend(
-			"force",
-			{},
-			vim.lsp.protocol.make_client_capabilities(),
-			cmp_lsp.default_capabilities()
-		)
+
+		vim.lsp.config("phpactor", {
+			cmd = { "phpactor", "language-server" },
+			filetypes = { "php" },
+
+			-- When working on Mediawiki I like having my cwd match the
+			-- extension that I'm working on, but I still want the LSP to be
+			-- useful. This is so that telescope works correctly mainly as the
+			-- submodules are ignored.
+			--
+			-- This override checks if I'm in Mediawiki, and if so, sets the
+			-- LSP cwd to the core repository.
+			root_dir = function(bufnr, on_dir)
+				local fname = vim.api.nvim_buf_get_name(bufnr)
+				local cwd = assert(vim.uv.cwd())
+
+				local mediawiki_path = vim.fs.joinpath(vim.fn.expand("~"), "src/wikimedia/mediawiki")
+				if string.sub(cwd, 1, #mediawiki_path) == mediawiki_path then
+					on_dir(mediawiki_path)
+					return
+				end
+
+				local root = vim.fs.root(fname, { "composer.json", ".git", ".phpactor.json", ".phpactor.yml" })
+
+				-- Prefer cwd if root is a descendant.
+				on_dir(root and vim.fs.relpath(cwd, root) and cwd)
+			end,
+		})
+
+		vim.lsp.config("cssls", {
+			-- Workaround Tailwind rules not being found.
+			settings = { css = { lint = { unknownAtRules = "ignore" } } },
+		})
+
+		vim.lsp.config("ts_ls", {
+			-- The TypeScript LSP isn't loading unless I add the 'on_attach'
+			-- for some reason.
+			on_attach = function(client)
+				require("lsp_signature").on_attach()
+			end,
+		})
+
+		vim.lsp.config("lua_ls", {
+			-- Make the Lua LSP work with tests.
+			settings = {
+				Lua = {
+					runtime = { version = "Lua 5.1" },
+					diagnostics = {
+						globals = { "vim", "it", "describe", "before_each", "after_each" },
+					},
+				},
+			},
+		})
 
 		require("fidget").setup({})
 		require("mason").setup()
-		require("mason-lspconfig").setup({
-			-- Recommended LSPs for primary dev systems.
-			--
-			-- I've got these disabled since I've started installing Neovim on
-			-- servers and I don't want to install a bunch of 3rd party
-			-- dependencies that I will never use.
-			--
-			-- ensure_installed = {
-			-- 	"css_variables",
-			-- 	"cssls",
-			-- 	"eslint",
-			-- 	"gopls",
-			-- 	"html",
-			-- 	"lua_ls",
-			-- 	"phpactor",
-			-- 	"pyright",
-			-- 	"rust_analyzer",
-			-- 	"tailwindcss",
-			-- 	"ts_ls",
-			-- 	"vuels",
-			-- },
-
-			handlers = {
-				-- Default handler (optional)
-				function(server_name)
-					require("lspconfig")[server_name].setup({
-						capabilities = capabilities,
-					})
-				end,
-
-				-- Make the Lua LSP work with tests.
-				["lua_ls"] = function()
-					local lspconfig = require("lspconfig")
-
-					lspconfig.lua_ls.setup({
-						capabilities = capabilities,
-						settings = {
-							Lua = {
-								runtime = { version = "Lua 5.1" },
-								diagnostics = {
-									globals = { "vim", "it", "describe", "before_each", "after_each" },
-								},
-							},
-						},
-					})
-				end,
-
-				-- The TypeScript LSP isn't loading unless I add the
-				-- 'on_attach' for some reason.
-				["ts_ls"] = function()
-					local lspconfig = require("lspconfig")
-
-					lspconfig.ts_ls.setup({
-						capabilities = capabilities,
-
-						on_attach = function(client)
-							require("lsp_signature").on_attach()
-						end,
-					})
-				end,
-
-				-- Workaround Tailwind rules not being found.
-				["cssls"] = function()
-					local lspconfig = require("lspconfig")
-
-					lspconfig.cssls.setup({
-						settings = { css = { lint = { unknownAtRules = "ignore" } } },
-					})
-				end,
-
-				-- When working on Mediawiki I like having my cwd match the
-				-- extension that I'm working on, but I still want the LSP to
-				-- be useful. This is so that telescope works correctly mainly
-				-- as the submodules are ignored.
-				--
-				-- This override checks if I'm in Mediawiki, and if so, sets
-				-- the LSP cwd to the core repository.
-				["phpactor"] = function()
-					local lspconfig = require("lspconfig")
-
-					lspconfig.phpactor.setup({
-						capabilities = capabilities,
-
-						root_dir = function(fname)
-							local cwd = vim.fn.getcwd()
-							local home_path = vim.fn.expand("~")
-							local mediawiki_path = vim.fs.joinpath(home_path, "src/wikimedia/mediawiki")
-
-							if string.sub(cwd, 1, #mediawiki_path) == mediawiki_path then
-								return mediawiki_path
-							end
-
-							-- Fallback to standard behavior for other PHP apps.
-							return lspconfig.util.root_pattern(".git", "composer.json")(fname)
-								or lspconfig.util.path.dirname(fname)
-						end,
-					})
-				end,
-			},
-		})
+		require("mason-lspconfig").setup()
 
 		local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
