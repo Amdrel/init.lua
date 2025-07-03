@@ -3,6 +3,12 @@ return {
 	build = ":TSUpdate",
 
 	config = function()
+		vim.filetype.add({
+			pattern = {
+				[".*%.blade%.php"] = "blade",
+			},
+		})
+
 		require("nvim-treesitter.configs").setup({
 			-- A list of parser names, or "all"
 			ensure_installed = {
@@ -16,6 +22,8 @@ return {
 				"bash",
 				"php",
 				"html",
+				"blade",
+				"php_only",
 			},
 
 			-- Install parsers synchronously (only applied to `ensure_installed`)
