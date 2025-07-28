@@ -1,5 +1,45 @@
 -- This file contains user-specific configurations for the VSCode Neovim plugin.
 
+local vscode = require("vscode")
+
+-- Centering the cursor when jumping around is very neat
+
+vim.keymap.set("n", "<C-d>", function()
+	local key = vim.api.nvim_replace_termcodes("<C-d>", true, false, true)
+	vim.api.nvim_feedkeys(key, "n", false)
+
+	-- Schedule the centering of the cursor for later as nvim_feedkeys doesn't
+	-- execute the command immediately.
+	vim.schedule(function()
+		local curline = vim.fn.line(".")
+		vscode.call("revealLine", { args = { lineNumber = curline, at = "center" } })
+	end)
+end, { noremap = true, silent = true })
+
+vim.keymap.set("n", "<C-u>", function()
+	local key = vim.api.nvim_replace_termcodes("<C-u>", true, false, true)
+	vim.api.nvim_feedkeys(key, "n", false)
+
+	-- Schedule the centering of the cursor for later as nvim_feedkeys doesn't
+	-- execute the command immediately.
+	vim.schedule(function()
+		local curline = vim.fn.line(".")
+		vscode.call("revealLine", { args = { lineNumber = curline, at = "center" } })
+	end)
+end, { noremap = true, silent = true })
+
+vim.keymap.set("n", "n", function()
+	vim.cmd(":norm! n")
+	local curline = vim.fn.line(".")
+	vscode.call("revealLine", { args = { lineNumber = curline, at = "center" } })
+end, { noremap = true, silent = true })
+
+vim.keymap.set("n", "N", function()
+	vim.cmd(":norm! N")
+	local curline = vim.fn.line(".")
+	vscode.call("revealLine", { args = { lineNumber = curline, at = "center" } })
+end, { noremap = true, silent = true })
+
 -- System clipboard integration
 if vim.fn.has("unix") == 1 then
 	local os = vim.fn.system("uname"):gsub("\n", "")
