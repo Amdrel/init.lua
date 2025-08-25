@@ -5,8 +5,8 @@ return {
 
 		config = function()
 			require("toggleterm").setup({
-				direction = "horizontal",
-				size = 25,
+				direction = "vertical",
+				size = 100,
 			})
 
 			vim.keymap.set({ "n", "t" }, "<C-`>", "<cmd>ToggleTerm<CR>")
