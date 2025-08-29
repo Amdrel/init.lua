@@ -17,6 +17,7 @@ return {
 			python = { "isort", "black" },
 			rust = { "rustfmt", lsp_format = "fallback" },
 			php = { "pint" },
+			sql = { "pg_format" },
 		},
 		format_on_save = function(bufnr)
 			-- Disable with a global or buffer-local variable
@@ -34,5 +35,6 @@ return {
 
 	config = function(_, opts)
 		require("conform").setup(opts)
+		require("conform").formatters.pg_format = { args = { "-u", "2" } }
 	end,
 }
