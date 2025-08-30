@@ -35,6 +35,13 @@ return {
 
 			indent = {
 				enable = true,
+
+				-- Disable indentation for specific file types. Indentation is
+				-- disabled for JavaScript because it is incorrect for
+				-- line-wrapped lambdas that prettier creates.
+				disable = function(lang)
+					return lang ~= "javascript"
+				end,
 			},
 
 			highlight = {
