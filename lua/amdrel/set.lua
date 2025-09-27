@@ -28,6 +28,8 @@ vim.opt.updatetime = 50
 
 vim.opt.exrc = true
 
+vim.opt.winborder = "rounded"
+
 -- System clipboard integration
 if vim.fn.has("unix") == 1 then
 	local os = vim.fn.system("uname"):gsub("\n", "")
