@@ -70,6 +70,35 @@ return {
 			},
 		})
 
+		vim.lsp.config("pyright", {
+			root_dir = function(bufnr, on_dir)
+				local fname = vim.api.nvim_buf_get_name(bufnr)
+				local root = vim.fs.root(fname, {
+					"pyrightconfig.json",
+					".git",
+					"pyproject.toml",
+					"setup.py",
+					"setup.cfg",
+					"requirements.txt",
+					"Pipfile",
+				})
+
+				-- Prefer cwd if root is a descendant.
+				local cwd = assert(vim.uv.cwd())
+				on_dir(root and vim.fs.relpath(cwd, root) and cwd)
+			end,
+
+			settings = {
+				python = {
+					analysis = {
+						autoSearchPaths = true,
+						diagnosticMode = "openFilesOnly",
+						useLibraryCodeForTypes = true,
+					},
+				},
+			},
+		})
+
 		require("fidget").setup({})
 		require("mason").setup()
 		require("mason-lspconfig").setup()

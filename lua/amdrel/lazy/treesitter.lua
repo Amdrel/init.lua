@@ -39,8 +39,11 @@ return {
 				-- Disable indentation for specific file types. Indentation is
 				-- disabled for JavaScript because it is incorrect for
 				-- line-wrapped lambdas that prettier creates.
+				--
+				-- It also doesn't work well for Python files with certain
+				-- kinds of deeply nested structures.
 				disable = function(lang)
-					return lang ~= "javascript"
+					return lang ~= "javascript" and lang ~= "python"
 				end,
 			},
 
