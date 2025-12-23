@@ -4,15 +4,6 @@ function ColorMyPencils(color)
 
 	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
-	vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = "none" })
-	vim.api.nvim_set_hl(0, "TelescopeBorder", { bg = "none" })
-	vim.api.nvim_set_hl(0, "TelescopePromptTitle", { bg = "none" })
-	vim.api.nvim_set_hl(0, "TelescopePromptCounter", { bg = "none" })
-	vim.api.nvim_set_hl(0, "TelescopePromptBorder", { bg = "none" })
-	vim.api.nvim_set_hl(0, "TelescopeResultsTitle", { bg = "none" })
-	vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { bg = "none" })
-	vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { bg = "none" })
-	vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { bg = "none" })
 	vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#222222" })
 	vim.api.nvim_set_hl(0, "CursorLine", { bg = "#212121" })
 	vim.api.nvim_set_hl(0, "TabLineFill", { bg = "#1e2024" })
@@ -45,6 +36,17 @@ return {
 						["@type.builtin.python"] = { fg = colors.blue },
 						["@keyword.type.python"] = { fg = colors.cyan },
 						["@string.documentation.python"] = { fg = "#5cb76e" },
+
+						-- Adjust Telescope colors to be solid.
+						TelescopeNormal = { bg = "#000000" },
+						TelescopeBorder = { bg = "#000000" },
+						TelescopePromptTitle = { bg = "#000000" },
+						TelescopePromptCounter = { bg = "#000000" },
+						TelescopePromptBorder = { bg = "#000000" },
+						TelescopeResultsTitle = { bg = "#000000" },
+						TelescopeResultsBorder = { bg = "#000000" },
+						TelescopePreviewTitle = { bg = "#000000" },
+						TelescopePreviewBorder = { bg = "#000000" },
 					}
 				end,
 				italics = false,
