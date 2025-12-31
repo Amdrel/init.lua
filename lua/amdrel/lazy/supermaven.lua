@@ -1,3 +1,7 @@
+if vim.fn.filereadable(vim.fn.expand("~/.enable-ai")) == 0 then
+	return {}
+end
+
 return {
 	"supermaven-inc/supermaven-nvim",
 
