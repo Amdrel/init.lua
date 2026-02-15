@@ -1,6 +1,7 @@
 require("amdrel.set")
 require("amdrel.remap")
 require("amdrel.lazy_init")
+require("amdrel.godot")
 
 local augroup = vim.api.nvim_create_augroup
 local AmdrelGroup = augroup("Amdrel", {})
