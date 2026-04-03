@@ -14,13 +14,16 @@ end
 return {
 	{
 		"cpea2506/one_monokai.nvim",
+
 		config = function()
 			require("one_monokai").setup({
 				transparent = true,
+
 				colors = {
 					green = "#d0d0d0",
 					pink = "#e8556b",
 				},
+
 				highlights = function(colors)
 					-- Change highlight of some groups, The key and value will
 					-- be passed respectively to "nvim_set_hl".
@@ -49,8 +52,10 @@ return {
 						TelescopePreviewBorder = { bg = "#000000" },
 					}
 				end,
+
 				italics = false,
 			})
+
 			ColorMyPencils()
 		end,
 	},

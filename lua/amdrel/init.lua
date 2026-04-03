@@ -56,14 +56,6 @@ autocmd({ "BufNewFile", "BufRead" }, {
 	end,
 })
 
-autocmd({ "VimLeave" }, {
-	group = AmdrelGroup,
-	pattern = "*",
-	callback = function()
-		vim.opt.guicursor = "a:hor20"
-	end,
-})
-
 autocmd("LspAttach", {
 	group = AmdrelGroup,
 	callback = function(e)
