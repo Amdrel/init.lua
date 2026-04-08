@@ -7,20 +7,23 @@ return {
 	init = function()
 		-- This is basically everything that I use on a semi-regular basis.
 		local ensureInstalled = {
-			"vimdoc",
-			"javascript",
-			"typescript",
-			"c",
-			"lua",
-			"rust",
-			"jsdoc",
 			"bash",
-			"gitcommit",
-			"php",
-			"python",
-			"html",
 			"blade",
+			"c",
+			"dockerfile",
+			"gitcommit",
+			"html",
+			"javascript",
+			"jsdoc",
+			"json",
+			"lua",
+			"php",
 			"php_only",
+			"python",
+			"rust",
+			"typescript",
+			"vimdoc",
+			"yaml",
 		}
 
 		-- Identify which parsers are not yet installed.
