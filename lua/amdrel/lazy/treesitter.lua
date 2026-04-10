@@ -24,6 +24,7 @@ return {
 			"typescript",
 			"vimdoc",
 			"yaml",
+			"zsh",
 		}
 
 		-- Identify which parsers are not yet installed.
