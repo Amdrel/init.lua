@@ -31,11 +31,19 @@ vim.filetype.add({
 	},
 })
 
+-- For reasons unknown to me, this is somehow not default. At least after
+-- updating Neovim to 0.12. Not sure if it's a regression or a bad plugin.
+vim.filetype.add({
+	extension = {
+		html = "html",
+	},
+})
+
 autocmd("TextYankPost", {
 	group = YankGroup,
 	pattern = "*",
 	callback = function()
-		vim.highlight.on_yank({
+		vim.hl.on_yank({
 			higroup = "IncSearch",
 			timeout = 40,
 		})
@@ -87,6 +95,13 @@ autocmd("LspAttach", {
 		vim.keymap.set("n", "]d", function()
 			vim.diagnostic.goto_prev()
 		end, opts)
+	end,
+})
+
+autocmd("FileType", {
+	pattern = "php",
+	callback = function()
+		vim.opt_local.autoindent = true
 	end,
 })
 

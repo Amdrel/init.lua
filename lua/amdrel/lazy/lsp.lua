@@ -30,7 +30,7 @@ return {
 			-- LSP cwd to the core repository.
 			root_dir = function(bufnr, on_dir)
 				local fname = vim.api.nvim_buf_get_name(bufnr)
-				local cwd = assert(vim.uv.cwd())
+				local cwd = assert(vim.uv.cwd(), "vim.uv.cwd() is unset")
 
 				local mediawiki_path = vim.fs.joinpath(vim.fn.expand("~"), "src/wikimedia/mediawiki")
 				if string.sub(cwd, 1, #mediawiki_path) == mediawiki_path then
