@@ -33,6 +33,7 @@ return {
 		})
 
 		local builtin = require("telescope.builtin")
+		local utils = require("telescope.utils")
 		vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
 		vim.keymap.set("n", "<C-p>", function()
 			-- TODO: Set CWD based on current buffer location (closest .git).
@@ -66,5 +67,30 @@ return {
 			})
 		end)
 		vim.keymap.set("n", "<leader>vh", builtin.help_tags, {})
+
+		-- Custom grep command that lets me search subdirectories.
+		--
+		-- Note: This currently doesn't expand aliases like `~`. Escaping of
+		-- spaces in paths does work, though.
+		vim.api.nvim_create_user_command("Grep", function(args)
+			if #args.fargs == 0 then
+				print("Usage: Grep <search string> [directory]")
+				return
+			end
+
+			local opts = {
+				search = args.fargs[1],
+				use_regex = false,
+			}
+			if #args.fargs > 1 then
+				local buffer_dir = utils.buffer_dir()
+				local dir = args.fargs[2]
+				opts.cwd = vim.fs.joinpath(buffer_dir, dir)
+			end
+			builtin.grep_string(opts)
+		end, {
+			desc = "Grep for strings in the project",
+			nargs = "*",
+		})
 	end,
 }
