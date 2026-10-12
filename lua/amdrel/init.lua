@@ -131,3 +131,10 @@ vim.api.nvim_create_user_command("FormatEnable", function()
 end, {
 	desc = "Re-enable autoformat-on-save",
 })
+
+-- Disable formatting for Mediawiki projects automatically.
+local cwd = assert(vim.uv.cwd(), "vim.uv.cwd() is unset")
+local mediawiki_path = vim.fs.joinpath(vim.fn.expand("~"), "src/wikimedia/mediawiki")
+if string.sub(cwd, 1, #mediawiki_path) == mediawiki_path then
+	vim.g.disable_autoformat = true
+end
