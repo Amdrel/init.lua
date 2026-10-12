@@ -132,9 +132,21 @@ end, {
 	desc = "Re-enable autoformat-on-save",
 })
 
--- Disable formatting for Mediawiki projects automatically.
-local cwd = assert(vim.uv.cwd(), "vim.uv.cwd() is unset")
-local mediawiki_path = vim.fs.joinpath(vim.fn.expand("~"), "src/wikimedia/mediawiki")
-if string.sub(cwd, 1, #mediawiki_path) == mediawiki_path then
-	vim.g.disable_autoformat = true
+-- Helper function for disabling autoformat-on-save for certain projects.
+local function disable_autoformat_for(projects)
+	local cwd = assert(vim.uv.cwd(), "vim.uv.cwd() is unset")
+
+	for _, project in ipairs(projects) do
+		local projects_path = vim.fs.joinpath(vim.fn.expand("~"), "src/" .. project)
+		if string.sub(cwd, 1, #projects_path) == projects_path then
+			vim.g.disable_autoformat = true
+		end
+	end
 end
+
+-- Disable formatting for any projects that use a lot of formatting that's
+-- likely to be clobbered by formatters unintentionally.
+--
+-- TODO: Investigate if it's possible that I can enable formatting only for new
+-- changes not not unchanged lines, depending on the formatter of course.
+disable_autoformat_for({ "wikimedia" })
