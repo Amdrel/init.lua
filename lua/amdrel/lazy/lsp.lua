@@ -62,7 +62,7 @@ return {
 			-- Make the Lua LSP work with tests.
 			settings = {
 				Lua = {
-					runtime = { version = "Lua 5.1" },
+					runtime = { version = "LuaJIT" },
 					diagnostics = {
 						globals = { "vim", "it", "describe", "before_each", "after_each" },
 					},
