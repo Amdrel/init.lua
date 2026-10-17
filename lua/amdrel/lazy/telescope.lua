@@ -36,12 +36,16 @@ return {
 		local utils = require("telescope.utils")
 		vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
 		vim.keymap.set("n", "<C-p>", function()
-			-- TODO: Set CWD based on current buffer location (closest .git).
-			builtin.git_files({
-				recurse_submodules = false,
-				show_untracked = true,
-				use_git_root = false,
-			})
+			if vim.uv.fs_stat("./.git") ~= nil then
+				-- TODO: Set CWD based on current buffer location (closest .git).
+				builtin.git_files({
+					recurse_submodules = false,
+					show_untracked = true,
+					use_git_root = false,
+				})
+			else
+				builtin.find_files({ no_ignore = true, hidden = true })
+			end
 		end, {})
 		vim.keymap.set("n", "<M-p>", function()
 			builtin.find_files({ no_ignore = true, hidden = true })
